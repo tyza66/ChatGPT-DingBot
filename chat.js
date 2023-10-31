@@ -54,7 +54,7 @@ async function CHAT(params, context) {
             accessToken: OPENAI_ACCESS_TOKEN,
             apiReverseProxyUrl: PROXY_URL
         })
-        const res = await api.sendMessage('Hello World!')
+        const res = await api.sendMessage(text)
         return reply(params, res);
     }
 
