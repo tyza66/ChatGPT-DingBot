@@ -1,5 +1,4 @@
-const { Configuration, OpenAIApi } = require('openai');
-const { generateSign, reply, handleError } = require('./_utils');
+import { generateSign, reply, handleError} from './_utils.js';
 import { ChatGPTUnofficialProxyAPI } from 'chatgpt'
 
 // 从环境变量中获取到钉钉和 OpenAI 的相关配置
@@ -61,4 +60,4 @@ async function CHAT(params, context) {
 
 };
 
-export default CHAT;
+export { CHAT }

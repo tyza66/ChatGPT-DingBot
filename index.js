@@ -1,14 +1,19 @@
-import {CHAT} from './chat'
-const express = require('express');
+import express from'express' 
+import bodyParser from 'body-parser'
+import {CHAT}  from './chat.js'
 
 const app = express();
+app.use(bodyParser());
 
 app.get('/test',(req,res) =>{
-    console.log(req)
+    //console.log(req)
+    res.send("测试成功")
 })
 
 app.post('/chat', (req, res) => {
-    
+    param = req.body
+    CHAT(param,'POST')
+    res.send("success")
 });
 
 const port = process.env.SERVER_PORT || 3000;

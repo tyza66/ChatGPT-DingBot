@@ -1,5 +1,5 @@
-const crypto = require('crypto');
-const axios = require('axios');
+import crypto from  'crypto'
+import axios from 'axios'
 
 // 从环境变量中获取到钉钉的相关配置
 const DING_APP_KEY = process.env.DING_APP_KEY || '';
@@ -145,7 +145,7 @@ function handleError(error) {
   return errorMessage;
 }
 
-module.exports = {
+export {
   generateSign,
   reply,
   handleError,
