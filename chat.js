@@ -11,25 +11,12 @@ const OPENAI_ACCESS_TOKEN = process.env.OPENAI_ACCESS_TOKEN || '';
 const PROXY_URL = process.env.PROXY_URL || ''
 
 // 主方法
-async function CHAT(params, context) {
-    if (context.method !== 'POST') {
-        // 钉钉机器人消息是 POST 请求，所以忽略所有非 POST 请求
-        return;
-    }
-
-    // 如果设置了 SECRET，则进行验证
-    if (DING_APP_SECRET) {
-        //从 Headers 中拿到 timestamp 和 sign 进行验证
-        const { timestamp, sign } = context.headers;
-        if (generateSign(timestamp) !== sign) {
-            return;
-        }
-    }
+async function CHAT(params) {
 
     // 打印请求参数到日志，方便排查
-    console.log('Received params:', params);
+    //console.log('Received params:', params);
 
-    const { msgtype, text, conversationId } = params;
+    const { msgtype, text } = params;
 
     //只支持文本消息
     if (msgtype !== 'text') {
@@ -50,12 +37,18 @@ async function CHAT(params, context) {
     }
     //如果配置了OPENAI_ACCESS_TOKEN就走这个
     else if (OPENAI_ACCESS_TOKEN) {
+        try{
         const api = new ChatGPTUnofficialProxyAPI({
             accessToken: OPENAI_ACCESS_TOKEN,
             apiReverseProxyUrl: PROXY_URL
         })
-        const res = await api.sendMessage(text)
-        return reply(params, res);
+        console.log(text.content)
+        const res = await api.sendMessage(text.content)
+        return reply(params, res.text);
+    }catch(e){
+        console.log(e)
+        return reply(params, "出错了,聊天中存在链接或其他原因。");
+    }
     }
 
 };

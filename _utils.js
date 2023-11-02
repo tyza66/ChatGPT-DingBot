@@ -22,16 +22,6 @@ async function getAccessToken() {
     );
   }
 
-  // 先从数据库中获取 token 看下是否过期，这样不用每次都发起请求
-  const TokenTable = aircode.db.table('token');
-  const item = await TokenTable.where().sort({ expiredAt: -1 }).findOne();
-  const now = Date.now();
-
-  // 如果 token 还在有效期内，则直接返回
-  if (item && item.expiredAt > now) {
-    return item.token;
-  }
-
   // 否则，请求钉钉获取 token
   const { data } = await axios.post(
     'https://api.dingtalk.com/v1.0/oauth2/accessToken',
@@ -42,10 +32,7 @@ async function getAccessToken() {
   );
 
   const token = data.accessToken;
-  const expiredAt = now + data.expireIn * 1000;
 
-  // 将 token 存入数据库
-  await TokenTable.save({ token, expiredAt });
 
   // 返回 token
   return token;
@@ -59,8 +46,10 @@ async function sendPrivateMessage(userId, content) {
     {
       robotCode: DING_APP_KEY,
       userIds: [userId],
-      msgKey: 'sampleText',
-      msgParam: JSON.stringify({ content }),
+      msgKey: 'sampleMarkdown',
+      msgParam: JSON.stringify({ 
+        "title":"问题解答信息",
+        "text": content })
     },
     {
       headers: {
@@ -78,8 +67,12 @@ async function sendGroupMessage(conversationId, content) {
     {
       robotCode: DING_APP_KEY,
       openConversationId: conversationId,
-      msgKey: 'sampleText',
-      msgParam: JSON.stringify({ content }),
+      // msgKey: 'sampleText',
+      // msgParam: JSON.stringify({ content }),
+      msgKey: 'sampleMarkdown',
+      msgParam: JSON.stringify({ 
+        "title":"问题解答信息",
+        "text": content })
     },
     {
       headers: {

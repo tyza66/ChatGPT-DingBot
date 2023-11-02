@@ -11,8 +11,9 @@ app.get('/test',(req,res) =>{
 })
 
 app.post('/chat', (req, res) => {
-    param = req.body
-    CHAT(param,'POST')
+    let param = req.body
+    console.log("消息来了")
+    CHAT(param)
     res.send("success")
 });
 
