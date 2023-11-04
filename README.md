@@ -11,7 +11,7 @@
 <img src="./images/1.png"/>
 </details>
 <details><summary>手机版效果</summary>
-<img src="./images/1.png"/>
+<img src="./images/2.jpg"/>
 </details>
 
 #### 二、环境要求
