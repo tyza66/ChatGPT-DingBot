@@ -7,6 +7,7 @@
 - 支持自定义代理聊天源
 - 支持群聊和单聊
 - 支持Docker部署
+- 默认启动在200端口（可以自行修改）
 <details><summary>电脑版效果</summary>
 <img src="./images/1.png"/>
 </details>
@@ -15,7 +16,7 @@
 </details>
 
 #### 二、环境要求
-- Node18直接可以运行（直接修改代码中的必要信息之后直接使用node启动index.js）（不一定非得是node18只是我使用node18写的别的版本没试过）
+- Node18直接可以运行（直接修改代码中的必要信息之后直接使用node启动index.js）（不一定非得是Node18只是我使用Node18写的别的Node版本没试过）
 - 可使用Docker运行（直接使用代码中提供的DockerFile打包，之后携带环境变量启动容器）
 
 #### 三、必要环境变量
@@ -23,8 +24,11 @@
 - DING_APP_SECRET
 - OPENAI_ACCESS_TOKEN
 - PROXY_URL
+  
+#### 四、非必要环境变量
+- SERVER_PORT（默认3000）
 
-#### 四、演示启动指令
+#### 五、演示启动指令
 ```
 node index.js
 ```
@@ -33,7 +37,7 @@ node index.js
 docker run -d -p 3096:3000 -e DING_APP_KEY=你的钉钉AppKey -e DING_APP_SECRET=你的钉钉AppSecret -e OPENAI_ACCESS_TOKEN=你的OPENAI_ACCESS_TOKEN -e PROXY_URL=你的代理源地址 chatgptdingbot:1.1
 ```
 
-#### 五、请求地址
+#### 六、请求地址
 - /test（GET） 测试是否启动
 - /chat（POST） 聊天接口（就是映射到外网之后填进钉钉消息接收地址里的地址）
 
