@@ -41,5 +41,8 @@ docker run -d -p 3096:3000 -e DING_APP_KEY=你的钉钉AppKey -e DING_APP_SECRET
 - /test（GET） 测试是否启动
 - /chat（POST） 聊天接口（就是映射到外网之后填进钉钉消息接收地址里的地址）
 
+#### 七、请求地址
+- Token获取地址：https://chat.openai.com/api/auth/session
+
 
 By:tyza66
