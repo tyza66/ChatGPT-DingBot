@@ -7,7 +7,7 @@
 - 支持自定义代理聊天源
 - 支持群聊和单聊
 - 支持Docker部署
-- 默认启动在200端口（可以自行修改）
+- 默认启动在3000端口（可以自行修改）
 <details><summary>电脑版效果</summary>
 <img src="./images/1.png"/>
 </details>
