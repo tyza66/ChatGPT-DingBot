@@ -1,9 +1,9 @@
-import { generateSign, reply, handleError} from './_utils.js';
-import { ChatGPTUnofficialProxyAPI } from 'chatgpt'
+import { generateSign, reply, handleError } from './_utils.js';
+import { ChatGPTUnofficialProxyAPI,ChatGPTAPI } from 'chatgpt'
 
 // 从环境变量中获取到钉钉和 OpenAI 的相关配置
 const DING_APP_SECRET = process.env.DING_APP_SECRET || '';
-const OPENAI_KEY = process.env.OPENAI_KEY || '';
+const OPENAI_API_KEY = process.env.OPENAI_API_KEY || '';
 // 当前使用的是 OpenAI 开放的最新 GPT-3.5 模型，如果后续 GPT-4 的 API 发布，修改此处参数即可
 // OpenAI models 参数列表 https://platform.openai.com/docs/models
 const OPENAI_MODEL = process.env.OPENAI_MODEL || 'gpt-3.5-turbo';
@@ -24,7 +24,7 @@ async function CHAT(params) {
     }
 
     // 如果都没有配置，则提醒需要配置
-    if (!OPENAI_KEY && !OPENAI_ACCESS_TOKEN) {
+    if (!OPENAI_API_KEY && !OPENAI_ACCESS_TOKEN) {
         return reply(
             params,
             '请配置 OPENAI_KEY 或 OPENAI_ACCESS_TOKEN 环境变量，完成 ChatGPT 连接。'
@@ -32,23 +32,38 @@ async function CHAT(params) {
     }
 
     //如果配置了OPENAI_KEY就走这个
-    if (OPENAI_KEY) {
-
+    if (OPENAI_API_KEY) {
+        try {
+            const api = new ChatGPTAPI({
+                apiKey: OPENAI_API_KEY,
+                apiBaseUrl: PROXY_URL,
+                completionParams: {
+                    model: OPENAI_MODEL
+                }
+            })
+            console.log(text.content)
+            const res = await api.sendMessage(text.content)
+            console.log(res.text)
+            return reply(params, res.text);
+        } catch (e) {
+            console.log(e)
+            return reply(params, "出错了,聊天中存在链接或其他原因。");
+        }
     }
     //如果配置了OPENAI_ACCESS_TOKEN就走这个
     else if (OPENAI_ACCESS_TOKEN) {
-        try{
-        const api = new ChatGPTUnofficialProxyAPI({
-            accessToken: OPENAI_ACCESS_TOKEN,
-            apiReverseProxyUrl: PROXY_URL
-        })
-        console.log(text.content)
-        const res = await api.sendMessage(text.content)
-        return reply(params, res.text);
-    }catch(e){
-        console.log(e)
-        return reply(params, "出错了,聊天中存在链接或其他原因。");
-    }
+        try {
+            const api = new ChatGPTUnofficialProxyAPI({
+                accessToken: OPENAI_ACCESS_TOKEN,
+                apiReverseProxyUrl: PROXY_URL
+            })
+            console.log(text.content)
+            const res = await api.sendMessage(text.content)
+            return reply(params, res.text);
+        } catch (e) {
+            console.log(e)
+            return reply(params, "出错了,聊天中存在链接或其他原因。");
+        }
     }
 
 };

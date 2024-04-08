@@ -17,6 +17,12 @@ app.post('/chat', (req, res) => {
     res.send("success")
 });
 
+// 这个是测试用的
+// app.get('/chat1', (req, res) => {
+//   CHAT({msgtype:"text",text:{content:"你好"}})
+//   res.send("success")
+// });
+
 const port = process.env.SERVER_PORT || 3000;
 
 app.listen(port, () => {
