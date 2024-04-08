@@ -46,6 +46,6 @@ docker run -d -p 3096:3000 -e DING_APP_KEY=你的钉钉AppKey -e DING_APP_SECRET
 
 #### 八、关于OPENAI_ACCESS_TOKEN方式
 - 如果没有可用的免费代理源、此方法将无法正常使用（目前没发现什么好用的）
-- 对于Pawan的提供的代理方案，请转移至https://github.com/tyza66/ChatGPT-DingBot-Pawan
+- 对于其他代理方案，请转移至https://github.com/tyza66/ChatGPT-DingBot-Python
 
 By:tyza66
