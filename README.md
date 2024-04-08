@@ -37,7 +37,7 @@ node index.js
 docker run -d -p 3096:3000 -e DING_APP_KEY=你的钉钉AppKey -e DING_APP_SECRET=你的钉钉AppSecret -e OPENAI_ACCESS_TOKEN=你的OPENAI_ACCESS_TOKEN -e PROXY_URL=你的代理源地址 chatgptdingbot:1.1
 ```
 
-#### 六、其他资料
+#### 六、接口文档
 - /test（GET） 测试是否启动
 - /chat（POST） 聊天接口（就是映射到外网之后填进钉钉消息接收地址里的地址）
 
@@ -47,5 +47,7 @@ docker run -d -p 3096:3000 -e DING_APP_KEY=你的钉钉AppKey -e DING_APP_SECRET
 #### 八、关于OPENAI_ACCESS_TOKEN方式
 - 如果没有可用的免费代理源、此方法将无法正常使用（目前没发现什么好用的）
 - 对于其他代理方案，请转移至https://github.com/tyza66/ChatGPT-DingBot-Python
+
+#### 九、相关项目
 
 By:tyza66
