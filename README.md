@@ -49,5 +49,6 @@ docker run -d -p 3096:3000 -e DING_APP_KEY=你的钉钉AppKey -e DING_APP_SECRET
 - 对于其他代理方案，请转移至https://github.com/tyza66/ChatGPT-DingBot-Python
 
 #### 九、相关项目
+- https://github.com/transitive-bullshit/chatgpt-api
 
 By:tyza66
